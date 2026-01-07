@@ -13,7 +13,8 @@ CREATE TABLE IF NOT EXISTS scores (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT,
     age INTEGER,
-    total_score INTEGER
+    total_score INTEGER,
+    timestamp TEXT DEFAULT CURRENT_TIMESTAMP
 )
 """)
 
@@ -156,9 +157,11 @@ def start_quiz(username, age):
         if current_q < len(filtered_questions):
             load_question()
         else:
+            from datetime import datetime
+            timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             cursor.execute(
-                "INSERT INTO scores (username, age, total_score) VALUES (?, ?, ?)",
-                (username, age, score)
+                "INSERT INTO scores (username, age, total_score, timestamp) VALUES (?, ?, ?, ?)",
+                (username, age, score, timestamp)
             )
             conn.commit()
 
