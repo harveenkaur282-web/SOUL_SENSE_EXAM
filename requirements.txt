@@ -13,6 +13,9 @@
 matplotlib>=3.5.0
 numpy>=1.21.0
 
+# Security - Password Hashing
+bcrypt>=4.0.0
+
 # Testing (optional)
 pytest>=6.0.0
 
