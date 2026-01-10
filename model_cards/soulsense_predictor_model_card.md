@@ -1,5 +1,7 @@
 # Model Card: Depression Risk Predictor
 
+This model card follows the framework proposed by Mitchell et al. (2019) for transparent machine learning documentation. For additional references on ML in mental health assessment, see [RESEARCH_REFERENCES.md](../RESEARCH_REFERENCES.md).
+
 ## Model Details
 
 ### Basic Information
@@ -47,11 +49,13 @@
 
 ### Out-of-Scope Use Cases
 
-❌ **NOT for clinical diagnosis** - This model does NOT diagnose depression or any mental health condition  
+❌ **NOT for clinical diagnosis** - This model does NOT diagnose depression or any mental health condition (see APA, 2013; WHO, 2017)  
 ❌ **NOT a replacement for professional assessment** - Should not replace licensed mental health professionals  
 ❌ **NOT for high-stakes decisions** - Should not be sole basis for treatment decisions  
 ❌ **NOT for different age groups without validation** - Currently trained on ages 12-50  
 ❌ **NOT for populations outside training distribution** - May not generalize to significantly different populations
+
+**Note**: Research has shown associations between emotional intelligence and mental health outcomes (Martins et al., 2010; Ciarrochi et al., 2002), but this model provides screening indicators only, not clinical assessments.
 
 ## Training Data
 
@@ -95,6 +99,25 @@ Labels generated using rule-based heuristics:
 
 ## Performance Metrics
 
+### Evaluation Methodology
+
+The model is evaluated using standard classification metrics:
+
+- **Accuracy**: Overall correctness of predictions
+- **Precision**: Proportion of positive predictions that are correct
+- **Recall**: Proportion of actual positives correctly identified
+- **F1-Score**: Harmonic mean of precision and recall
+
+**Note on RMSE**: Root Mean Squared Error (RMSE) is a regression metric for continuous value prediction. Since this is a classification model (predicting categories), RMSE is not applicable. Classification metrics (accuracy, precision, recall, F1) are the appropriate measures.
+
+For comprehensive evaluation, run:
+
+```bash
+python evaluate_models.py
+```
+
+This generates detailed metrics, confusion matrices, ROC curves, and performance reports.
+
 ### Overall Performance (v1.0.0)
 
 - **Training Accuracy**: ~95-98%
@@ -112,6 +135,15 @@ Based on classification report from training:
 | Low Risk (0)      | 0.90-0.95 | 0.85-0.90 | 0.88-0.92 | ~120 samples |
 | Moderate Risk (1) | 0.75-0.85 | 0.80-0.90 | 0.78-0.87 | ~50 samples  |
 | High Risk (2)     | 0.85-0.92 | 0.85-0.90 | 0.85-0.91 | ~30 samples  |
+
+### Evaluation Tools
+
+The project includes comprehensive evaluation infrastructure:
+
+- **model_evaluation.py**: Core evaluation metrics module
+- **evaluate_models.py**: Automated evaluation script for all models
+- **Outputs**: Confusion matrices, ROC curves, detailed reports
+- **Comparison**: Side-by-side model performance comparison
 
 ### Feature Importance
 
