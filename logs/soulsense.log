@@ -602,3 +602,467 @@ sqlite3.OperationalError: no such column: sentiment_score
 2026-01-09 20:21:44,461 - root - INFO - Using 10 questions based on settings
 2026-01-09 20:23:20,676 - root - INFO - Session started | user=rohan | age=20 | age_group=adult | profession=Student | questions=10
 2026-01-09 20:24:36,882 - root - INFO - Session started | user=rohan | age=20 | age_group=adult | profession=Student | questions=10
+2026-01-10 15:58:38,791 - root - INFO - Logging initialized.
+2026-01-10 15:58:38,801 - root - INFO - Application started
+2026-01-10 15:58:38,816 - root - INFO - Loaded 10 total questions from DB
+2026-01-10 15:58:41,610 - root - ERROR - Failed to initialize ML Predictor: 'NoneType' object is not callable
+2026-01-10 15:58:41,692 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-10 15:58:41,692 - root - INFO - Using 10 questions based on settings
+2026-01-10 16:00:10,640 - app.db - ERROR - Unexpected error in DB context: 'Response' object is not subscriptable
+Traceback (most recent call last):
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\db.py", line 32, in safe_db_context
+    yield session
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\time_based_analysis.py", line 218, in analyze_response_patterns_over_time
+    all_values = [r["response_value"] for r in responses]
+                  ~^^^^^^^^^^^^^^^^^^
+TypeError: 'Response' object is not subscriptable
+2026-01-10 16:00:10,643 - app.time_based_analysis - ERROR - Error analyzing response patterns for rohan: An unexpected database error occurred.
+2026-01-10 16:00:10,737 - emotional_profile_clustering - WARNING - Model not fitted. Call fit() first.
+2026-01-10 16:05:40,704 - root - INFO - Logging initialized.
+2026-01-10 16:05:40,713 - root - INFO - Application started
+2026-01-10 16:05:40,724 - root - INFO - Loaded 10 total questions from DB
+2026-01-10 16:05:43,104 - root - INFO - ML Predictor initialized successfully
+2026-01-10 16:05:43,150 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-10 16:05:43,150 - root - INFO - Using 10 questions based on settings
+2026-01-10 16:06:07,728 - root - INFO - Session started | user=rohan | age=20 | age_group=adult | profession=Student | questions=10
+2026-01-10 16:07:34,028 - app.pdf_generator - ERROR - Failed to generate PDF report: 'PDFReportGenerator' object has no attribute '_get_interpretation'
+Traceback (most recent call last):
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\pdf_generator.py", line 76, in generate
+    summary = self._get_interpretation(score_data['total_score'], score_data['max_score'])
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PDFReportGenerator' object has no attribute '_get_interpretation'
+2026-01-10 16:07:50,580 - app.pdf_generator - ERROR - Failed to generate PDF report: 'PDFReportGenerator' object has no attribute '_get_interpretation'
+Traceback (most recent call last):
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\pdf_generator.py", line 76, in generate
+    summary = self._get_interpretation(score_data['total_score'], score_data['max_score'])
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PDFReportGenerator' object has no attribute '_get_interpretation'
+2026-01-10 16:11:06,258 - root - INFO - Logging initialized.
+2026-01-10 16:11:06,259 - root - INFO - Application started
+2026-01-10 16:11:06,261 - root - INFO - Loaded 10 total questions from DB
+2026-01-10 16:11:08,539 - root - INFO - ML Predictor initialized successfully
+2026-01-10 16:11:08,557 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-10 16:11:08,558 - root - INFO - Using 10 questions based on settings
+2026-01-10 16:11:36,256 - root - INFO - Session started | user=rohan | age=20 | age_group=adult | profession=Student | questions=10
+2026-01-10 16:12:16,545 - app.pdf_generator - INFO - PDF Report generated successfully: C:/Users/Rohan Rathod/Downloads/SoulSense_Report_rohan_20260110.pdf
+2026-01-10 16:14:21,363 - app.db - ERROR - Unexpected error in DB context: 'Response' object is not subscriptable
+Traceback (most recent call last):
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\db.py", line 32, in safe_db_context
+    yield session
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\time_based_analysis.py", line 218, in analyze_response_patterns_over_time
+    all_values = [r["response_value"] for r in responses]
+                  ~^^^^^^^^^^^^^^^^^^
+TypeError: 'Response' object is not subscriptable
+2026-01-10 16:14:21,380 - app.time_based_analysis - ERROR - Error analyzing response patterns for rohan: An unexpected database error occurred.
+2026-01-10 16:14:21,456 - emotional_profile_clustering - WARNING - Model not fitted. Call fit() first.
+2026-01-10 16:29:07,687 - root - INFO - Logging initialized.
+2026-01-10 16:31:39,428 - root - INFO - Session started | user=rohan | age=20 | questions=10
+2026-01-10 16:31:42,421 - root - CRITICAL - Unhandled exception in GUI
+Traceback (most recent call last):
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2088, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\auth.py", line 195, in _enter_start
+    self.process_start_input()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\auth.py", line 199, in process_start_input
+    username = self.name_entry.get().strip()
+               ~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\tkinter\__init__.py", line 3276, in get
+    return self.tk.call(self._w, 'get')
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+_tkinter.TclError: invalid command name ".!entry"
+2026-01-10 16:31:42,450 - root - ERROR - Unexpected Error: An error occurred.
+2026-01-10 16:31:45,217 - root - CRITICAL - Unhandled exception in GUI
+Traceback (most recent call last):
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2088, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\auth.py", line 195, in _enter_start
+    self.process_start_input()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\auth.py", line 199, in process_start_input
+    username = self.name_entry.get().strip()
+               ~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\tkinter\__init__.py", line 3276, in get
+    return self.tk.call(self._w, 'get')
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+_tkinter.TclError: invalid command name ".!entry"
+2026-01-10 16:31:45,218 - root - ERROR - Unexpected Error: An error occurred.
+2026-01-10 16:31:46,789 - root - CRITICAL - Unhandled exception in GUI
+Traceback (most recent call last):
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2088, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\auth.py", line 195, in _enter_start
+    self.process_start_input()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\auth.py", line 199, in process_start_input
+    username = self.name_entry.get().strip()
+               ~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\tkinter\__init__.py", line 3276, in get
+    return self.tk.call(self._w, 'get')
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+_tkinter.TclError: invalid command name ".!entry"
+2026-01-10 16:31:46,790 - root - ERROR - Unexpected Error: An error occurred.
+2026-01-10 16:31:51,757 - root - CRITICAL - Unhandled exception in GUI
+Traceback (most recent call last):
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2088, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\auth.py", line 195, in _enter_start
+    self.process_start_input()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\auth.py", line 199, in process_start_input
+    username = self.name_entry.get().strip()
+               ~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\tkinter\__init__.py", line 3276, in get
+    return self.tk.call(self._w, 'get')
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+_tkinter.TclError: invalid command name ".!entry"
+2026-01-10 16:31:51,758 - root - ERROR - Unexpected Error: An error occurred.
+2026-01-10 16:32:00,202 - root - CRITICAL - Unhandled exception in GUI
+Traceback (most recent call last):
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2088, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\auth.py", line 195, in _enter_start
+    self.process_start_input()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\auth.py", line 199, in process_start_input
+    username = self.name_entry.get().strip()
+               ~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\tkinter\__init__.py", line 3276, in get
+    return self.tk.call(self._w, 'get')
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+_tkinter.TclError: invalid command name ".!entry"
+2026-01-10 16:32:00,311 - root - ERROR - Unexpected Error: An error occurred.
+2026-01-10 16:32:04,497 - root - CRITICAL - Unhandled exception in GUI
+Traceback (most recent call last):
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2088, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\auth.py", line 195, in _enter_start
+    self.process_start_input()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\auth.py", line 199, in process_start_input
+    username = self.name_entry.get().strip()
+               ~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\tkinter\__init__.py", line 3276, in get
+    return self.tk.call(self._w, 'get')
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+_tkinter.TclError: invalid command name ".!entry"
+2026-01-10 16:32:04,499 - root - ERROR - Unexpected Error: An error occurred.
+2026-01-10 16:32:34,930 - root - INFO - Results saved for rohan
+2026-01-10 16:37:27,404 - root - CRITICAL - Unhandled exception in GUI
+Traceback (most recent call last):
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2088, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\main.py", line 204, in open_journal_flow
+    self.journal_feature.show_journal_home(
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'JournalFeature' object has no attribute 'show_journal_home'
+2026-01-10 16:37:27,521 - root - ERROR - Unexpected Error: An error occurred.
+2026-01-10 16:42:10,793 - root - INFO - Logging initialized.
+2026-01-10 16:42:55,570 - root - INFO - Session started | user=rohan | age=20 | questions=10
+2026-01-10 16:42:57,236 - root - CRITICAL - Unhandled exception in GUI
+Traceback (most recent call last):
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2088, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\auth.py", line 195, in _enter_start
+    self.process_start_input()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\auth.py", line 199, in process_start_input
+    username = self.name_entry.get().strip()
+               ~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\tkinter\__init__.py", line 3276, in get
+    return self.tk.call(self._w, 'get')
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+_tkinter.TclError: invalid command name ".!entry"
+2026-01-10 16:42:57,241 - root - ERROR - Unexpected Error: An error occurred.
+2026-01-10 16:42:58,210 - root - CRITICAL - Unhandled exception in GUI
+Traceback (most recent call last):
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2088, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\auth.py", line 195, in _enter_start
+    self.process_start_input()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\auth.py", line 199, in process_start_input
+    username = self.name_entry.get().strip()
+               ~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\tkinter\__init__.py", line 3276, in get
+    return self.tk.call(self._w, 'get')
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+_tkinter.TclError: invalid command name ".!entry"
+2026-01-10 16:42:58,212 - root - ERROR - Unexpected Error: An error occurred.
+2026-01-10 16:43:12,003 - root - CRITICAL - Unhandled exception in GUI
+Traceback (most recent call last):
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2088, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\auth.py", line 195, in _enter_start
+    self.process_start_input()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\auth.py", line 199, in process_start_input
+    username = self.name_entry.get().strip()
+               ~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\tkinter\__init__.py", line 3276, in get
+    return self.tk.call(self._w, 'get')
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+_tkinter.TclError: invalid command name ".!entry"
+2026-01-10 16:43:12,005 - root - ERROR - Unexpected Error: An error occurred.
+2026-01-10 16:43:30,805 - root - INFO - Results saved for rohan
+2026-01-10 16:57:38,462 - root - INFO - Logging initialized.
+2026-01-10 16:57:38,468 - root - INFO - Application started
+2026-01-10 16:57:38,471 - root - INFO - Loaded 10 total questions from DB
+2026-01-10 16:57:40,863 - root - INFO - ML Predictor initialized successfully
+2026-01-10 16:57:40,880 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-10 16:57:40,881 - root - INFO - Using 9 questions based on settings
+2026-01-10 16:59:48,852 - root - INFO - Session started | user=rohan | age=20 | age_group=adult | profession=Student | questions=9
+2026-01-10 16:59:57,948 - root - INFO - Logging initialized.
+2026-01-10 16:59:57,949 - root - INFO - Application started
+2026-01-10 16:59:57,982 - root - INFO - Loaded 10 total questions from DB
+2026-01-10 16:59:58,111 - root - INFO - ML Predictor initialized successfully
+2026-01-10 16:59:58,154 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-10 16:59:58,154 - root - INFO - Using 9 questions based on settings
+2026-01-10 17:00:25,564 - root - INFO - Logging initialized.
+2026-01-10 17:00:25,565 - root - INFO - Application started
+2026-01-10 17:00:25,578 - root - INFO - Loaded 10 total questions from DB
+2026-01-10 17:00:27,822 - root - ERROR - Failed to initialize ML Predictor: 'NoneType' object is not callable
+2026-01-10 17:00:27,970 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-10 17:00:27,971 - root - INFO - Using 9 questions based on settings
+2026-01-10 17:02:21,821 - root - INFO - Logging initialized.
+2026-01-10 17:02:21,831 - root - INFO - Application started
+2026-01-10 17:02:21,841 - root - INFO - Loaded 10 total questions from DB
+2026-01-10 17:02:21,866 - root - INFO - Logging initialized.
+2026-01-10 17:02:21,866 - root - INFO - Application started
+2026-01-10 17:02:21,868 - root - INFO - Loaded 10 total questions from DB
+2026-01-10 17:02:21,985 - root - INFO - ML Predictor initialized successfully
+2026-01-10 17:02:22,030 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-10 17:02:22,032 - root - INFO - Using 9 questions based on settings
+2026-01-10 17:02:24,111 - root - INFO - ML Predictor initialized successfully
+2026-01-10 17:02:24,139 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-10 17:02:24,144 - root - INFO - Using 9 questions based on settings
+2026-01-10 17:02:59,302 - root - INFO - Session started | user=rohan | age=20 | age_group=adult | profession=Student | questions=9
+2026-01-10 17:03:26,002 - app.db - ERROR - Unexpected error in DB context: 'Response' object is not subscriptable
+Traceback (most recent call last):
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\db.py", line 32, in safe_db_context
+    yield session
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\time_based_analysis.py", line 218, in analyze_response_patterns_over_time
+    all_values = [r["response_value"] for r in responses]
+                  ~^^^^^^^^^^^^^^^^^^
+TypeError: 'Response' object is not subscriptable
+2026-01-10 17:03:26,070 - app.time_based_analysis - ERROR - Error analyzing response patterns for rohan: An unexpected database error occurred.
+2026-01-10 17:03:26,258 - emotional_profile_clustering - WARNING - Model not fitted. Call fit() first.
+2026-01-10 17:03:38,094 - app.db - ERROR - Unexpected error in DB context: 'Response' object is not subscriptable
+Traceback (most recent call last):
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\db.py", line 32, in safe_db_context
+    yield session
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\time_based_analysis.py", line 218, in analyze_response_patterns_over_time
+    all_values = [r["response_value"] for r in responses]
+                  ~^^^^^^^^^^^^^^^^^^
+TypeError: 'Response' object is not subscriptable
+2026-01-10 17:03:38,095 - app.time_based_analysis - ERROR - Error analyzing response patterns for rohan: An unexpected database error occurred.
+2026-01-10 17:03:38,108 - emotional_profile_clustering - WARNING - Model not fitted. Call fit() first.
+2026-01-10 17:06:08,257 - root - CRITICAL - Unhandled exception in GUI
+Traceback (most recent call last):
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2088, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\main.py", line 641, in reset_defaults
+    def reset_defaults():
+    
+NameError: name 'DEFAULT_SETTINGS' is not defined
+2026-01-10 17:06:08,270 - root - ERROR - Unexpected Error: An unexpected error occurred.
+2026-01-10 17:06:42,303 - root - INFO - Logging initialized.
+2026-01-10 17:06:42,304 - root - INFO - Application started
+2026-01-10 17:06:42,431 - root - INFO - Loaded 10 total questions from DB
+2026-01-10 17:06:42,649 - root - INFO - ML Predictor initialized successfully
+2026-01-10 17:06:42,690 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-10 17:06:42,690 - root - INFO - Using 9 questions based on settings
+2026-01-10 17:07:04,102 - root - INFO - Logging initialized.
+2026-01-10 17:07:04,102 - root - INFO - Application started
+2026-01-10 17:07:04,104 - root - INFO - Loaded 10 total questions from DB
+2026-01-10 17:07:06,257 - root - ERROR - Failed to initialize ML Predictor: 'NoneType' object is not callable
+2026-01-10 17:07:06,277 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-10 17:07:06,277 - root - INFO - Using 9 questions based on settings
+2026-01-10 17:07:40,046 - root - INFO - Session started | user=rohan | age=20 | age_group=adult | profession=Student | questions=9
+2026-01-10 17:21:29,425 - root - INFO - Logging initialized.
+2026-01-10 17:21:29,435 - root - INFO - Application started
+2026-01-10 17:21:29,443 - root - INFO - Loaded 10 total questions from DB
+2026-01-10 17:21:29,606 - root - INFO - ML Predictor initialized successfully
+2026-01-10 17:21:29,644 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-10 17:21:29,645 - root - INFO - Using 9 questions based on settings
+2026-01-10 17:22:14,780 - root - INFO - Logging initialized.
+2026-01-10 17:22:14,781 - root - INFO - Application started
+2026-01-10 17:22:14,782 - root - INFO - Loaded 10 total questions from DB
+2026-01-10 17:22:14,855 - root - INFO - ML Predictor initialized successfully
+2026-01-10 17:22:14,869 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-10 17:22:14,869 - root - INFO - Using 9 questions based on settings
+2026-01-10 17:23:18,116 - root - INFO - Logging initialized.
+2026-01-10 17:23:18,117 - root - INFO - Application started
+2026-01-10 17:23:18,118 - root - INFO - Loaded 10 total questions from DB
+2026-01-10 17:23:20,309 - root - INFO - ML Predictor initialized successfully
+2026-01-10 17:23:20,325 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-10 17:23:20,325 - root - INFO - Using 9 questions based on settings
+2026-01-10 17:23:33,510 - root - INFO - Session started | user=rohan | age=20 | age_group=adult | profession=Student | questions=9
+2026-01-10 17:23:34,832 - root - CRITICAL - Unhandled exception in GUI
+Traceback (most recent call last):
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2088, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\auth.py", line 224, in _enter_start
+    self.app.start_test()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\main.py", line 643, in start_test
+    self.exam.start_test()
+    ~~~~~~~~~~~~~~~~~~~~^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\exam.py", line 25, in start_test
+    self.app.username = self.app.name_entry.get().strip()
+                        ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\tkinter\__init__.py", line 3276, in get
+    return self.tk.call(self._w, 'get')
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+_tkinter.TclError: invalid command name ".!entry"
+2026-01-10 17:23:34,838 - root - ERROR - Interface Error: A graphical interface error occurred.
+2026-01-10 17:23:38,269 - root - CRITICAL - Unhandled exception in GUI
+Traceback (most recent call last):
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2088, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\auth.py", line 224, in _enter_start
+    self.app.start_test()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\main.py", line 643, in start_test
+    self.exam.start_test()
+    ~~~~~~~~~~~~~~~~~~~~^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\exam.py", line 25, in start_test
+    self.app.username = self.app.name_entry.get().strip()
+                        ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\tkinter\__init__.py", line 3276, in get
+    return self.tk.call(self._w, 'get')
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+_tkinter.TclError: invalid command name ".!entry"
+2026-01-10 17:23:38,271 - root - ERROR - Interface Error: A graphical interface error occurred.
+2026-01-10 17:23:44,481 - root - CRITICAL - Unhandled exception in GUI
+Traceback (most recent call last):
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2088, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\auth.py", line 224, in _enter_start
+    self.app.start_test()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\main.py", line 643, in start_test
+    self.exam.start_test()
+    ~~~~~~~~~~~~~~~~~~~~^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\exam.py", line 25, in start_test
+    self.app.username = self.app.name_entry.get().strip()
+                        ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\tkinter\__init__.py", line 3276, in get
+    return self.tk.call(self._w, 'get')
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+_tkinter.TclError: invalid command name ".!entry"
+2026-01-10 17:23:44,482 - root - ERROR - Interface Error: A graphical interface error occurred.
+2026-01-10 17:24:26,976 - root - CRITICAL - Unhandled exception in GUI
+Traceback (most recent call last):
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2088, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\exam.py", line 283, in submit_reflection
+    self.finish_test()
+    ~~~~~~~~~~~~~~~~^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\exam.py", line 303, in finish_test
+    self.app.show_visual_results()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\main.py", line 672, in show_visual_results
+    comparisons = self.get_benchmark_comparison()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'SoulSenseApp' object has no attribute 'get_benchmark_comparison'
+2026-01-10 17:24:26,978 - root - ERROR - Unexpected Error: An unexpected error occurred.
+2026-01-10 17:25:09,091 - root - INFO - Logging initialized.
+2026-01-10 17:25:09,091 - root - INFO - Application started
+2026-01-10 17:25:09,094 - root - INFO - Loaded 10 total questions from DB
+2026-01-10 17:25:11,307 - root - INFO - ML Predictor initialized successfully
+2026-01-10 17:25:11,328 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-10 17:25:11,329 - root - INFO - Using 9 questions based on settings
+2026-01-10 17:25:18,778 - app.db - ERROR - Unexpected error in DB context: 'Response' object is not subscriptable
+Traceback (most recent call last):
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\db.py", line 32, in safe_db_context
+    yield session
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\time_based_analysis.py", line 218, in analyze_response_patterns_over_time
+    all_values = [r["response_value"] for r in responses]
+                  ~^^^^^^^^^^^^^^^^^^
+TypeError: 'Response' object is not subscriptable
+2026-01-10 17:25:18,954 - app.time_based_analysis - ERROR - Error analyzing response patterns for rohan: An unexpected database error occurred.
+2026-01-10 17:25:19,063 - emotional_profile_clustering - WARNING - Model not fitted. Call fit() first.
+2026-01-10 17:29:16,957 - root - INFO - Logging initialized.
+2026-01-10 17:29:16,959 - root - INFO - Application started
+2026-01-10 17:29:16,961 - root - INFO - Loaded 10 total questions from DB
+2026-01-10 17:29:17,185 - root - INFO - ML Predictor initialized successfully
+2026-01-10 17:29:17,201 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-10 17:29:17,201 - root - INFO - Using 9 questions based on settings
+2026-01-10 17:29:41,675 - root - CRITICAL - Unhandled exception in GUI
+Traceback (most recent call last):
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2088, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "C:\Python314\Lib\tkinter\__init__.py", line 876, in callit
+    func(*args, **kw)
+    ~~~~^^^^^^^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\main.py", line 1149, in launch_main_app
+    root.mainloop()
+    ~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\tkinter\__init__.py", line 1613, in mainloop
+    self.tk.mainloop(n)
+    ~~~~~~~~~~~~~~~~^^^
+KeyboardInterrupt
+2026-01-10 17:29:41,687 - root - ERROR - Unexpected Error: An unexpected error occurred.
+2026-01-10 17:29:59,020 - root - INFO - Logging initialized.
+2026-01-10 17:29:59,021 - root - INFO - Application started
+2026-01-10 17:29:59,025 - root - INFO - Loaded 10 total questions from DB
+2026-01-10 17:30:01,326 - root - INFO - ML Predictor initialized successfully
+2026-01-10 17:30:01,348 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-10 17:30:01,348 - root - INFO - Using 9 questions based on settings
+2026-01-10 17:30:36,886 - root - INFO - Session started | user=rohan | age=20 | age_group=adult | profession=Professional | questions=9
+2026-01-10 17:30:50,717 - root - CRITICAL - Unhandled exception in GUI
+Traceback (most recent call last):
+  File "C:\Python314\Lib\tkinter\__init__.py", line 2088, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\exam.py", line 271, in submit_reflection
+    self.finish_test()
+    ~~~~~~~~~~~~~~~~^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\ui\exam.py", line 291, in finish_test
+    self.app.show_visual_results()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\main.py", line 672, in show_visual_results
+    comparisons = self.get_benchmark_comparison()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'SoulSenseApp' object has no attribute 'get_benchmark_comparison'
+2026-01-10 17:30:50,724 - root - ERROR - Unexpected Error: An unexpected error occurred.
+2026-01-10 17:34:35,667 - root - INFO - Logging initialized.
+2026-01-10 17:34:35,669 - root - INFO - Application started
+2026-01-10 17:34:35,671 - root - INFO - Loaded 10 total questions from DB
+2026-01-10 17:34:35,890 - root - INFO - ML Predictor initialized successfully
+2026-01-10 17:34:35,907 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-10 17:34:35,908 - root - INFO - Using 9 questions based on settings
+2026-01-10 17:35:16,489 - root - INFO - Logging initialized.
+2026-01-10 17:35:16,489 - root - INFO - Application started
+2026-01-10 17:35:16,491 - root - INFO - Loaded 10 total questions from DB
+2026-01-10 17:35:19,069 - root - INFO - ML Predictor initialized successfully
+2026-01-10 17:35:19,148 - root - INFO - SentimentIntensityAnalyzer initialized successfully
+2026-01-10 17:35:19,148 - root - INFO - Using 9 questions based on settings
+2026-01-10 17:35:27,670 - root - INFO - Session started | user=rohan | age=20 | age_group=adult | profession=Student | questions=9
+2026-01-10 17:36:10,880 - app.db - ERROR - Unexpected error in DB context: 'Response' object is not subscriptable
+Traceback (most recent call last):
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\db.py", line 32, in safe_db_context
+    yield session
+  File "B:\Open_Source\soul_sence_Exam\SOUL_SENSE_EXAM\app\time_based_analysis.py", line 218, in analyze_response_patterns_over_time
+    all_values = [r["response_value"] for r in responses]
+                  ~^^^^^^^^^^^^^^^^^^
+TypeError: 'Response' object is not subscriptable
+2026-01-10 17:36:10,889 - app.time_based_analysis - ERROR - Error analyzing response patterns for rohan: An unexpected database error occurred.
+2026-01-10 17:36:11,089 - emotional_profile_clustering - WARNING - Model not fitted. Call fit() first.
