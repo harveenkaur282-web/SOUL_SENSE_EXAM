@@ -1,0 +1,74 @@
+name: Request PR description updates
+
+on:
+  pull_request_target:
+    types: [opened, edited]
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  check-pr-description:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check PR description completeness
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const body = pr.body || "";
+            const minLength = 50;
+
+            // Flags for issues
+            let issues = [];
+
+            // 1️⃣ Check minimum length
+            if (body.trim().length < minLength) {
+              issues.push(`- PR description is too short (minimum ${minLength} characters).`);
+            }
+
+            // 2️⃣ Check for required section headings
+            const requiredSections = ["## Summary", "## Description"];
+            for (const section of requiredSections) {
+              if (!body.includes(section)) {
+                issues.push(`- Missing required section: \`${section}\``);
+              }
+            }
+
+            // 3️⃣ Check for placeholder text
+            const placeholders = ["TBD", "WIP", "Update this", "TODO"];
+            for (const placeholder of placeholders) {
+              if (body.includes(placeholder)) {
+                issues.push(`- Contains placeholder text: \`${placeholder}\``);
+              }
+            }
+
+            // 4️⃣ Check for completely empty body
+            if (body.trim().length === 0) {
+              issues.push("- PR description is empty.");
+            }
+
+            // Post a comment if any issues found
+            if (issues.length > 0) {
+              const commentBody = `
+Hello @${pr.user.login},
+
+Your pull request description appears to be incomplete or requires updates:
+
+${issues.join("\n")}
+
+Please update your PR description to include the necessary details and context to help reviewers.
+              `;
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                body: commentBody
+              });
+
+              console.log(`Requested updates on PR #${pr.number}`);
+            } else {
+              console.log(`PR #${pr.number} description passed all checks.`);
+            }
