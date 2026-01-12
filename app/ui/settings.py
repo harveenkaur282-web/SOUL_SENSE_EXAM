@@ -348,16 +348,15 @@ class SettingsManager:
         # Apply theme immediately
         self.app.apply_theme(new_settings["theme"])
 
-            
-            # Reload questions
-            if hasattr(self.app, 'reload_questions'):
-                self.app.reload_questions(new_settings["question_count"])
-            
-            messagebox.showinfo("Success", "Settings saved successfully!")
-            self.settings_win.destroy()
-            
-            # Refresh welcome screen
-            self.app.create_welcome_screen()
+        # Reload questions
+        if hasattr(self.app, 'reload_questions'):
+            self.app.reload_questions(new_settings["question_count"])
+        
+        messagebox.showinfo("Success", "Settings saved successfully!")
+        self.settings_win.destroy()
+        
+        # Refresh welcome screen
+        self.app.create_welcome_screen()
     
     def _reset_defaults(self):
         """Reset settings to defaults"""
