@@ -21,13 +21,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Apply ECWoC label
+      - name: Apply ECWoC26 label
         uses: actions/github-script@v6
         with:
           script: |
             const owner = context.repo.owner;
             const repo = context.repo.repo;
-            const labelName = "ECWoC";
+            const labelName = "ECWoC26";
 
             async function addLabel(issueNumber, labels) {
               if (!labels.includes(labelName)) {
