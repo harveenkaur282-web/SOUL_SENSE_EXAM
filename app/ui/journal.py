@@ -427,19 +427,56 @@ class JournalFeature:
                  relief="flat", padx=10).pack(pady=5)
         
 
-        # Filter Frame
-        filter_frame = tk.Frame(entries_window, bg=self.colors["bg"], pady=10)
-        filter_frame.pack(fill="x", padx=20)
+        # --- Modern Filter Bar ---
+        filter_frame = tk.Frame(entries_window, bg=self.colors.get("surface", "#fff"), pady=12)
+        filter_frame.pack(fill="x", padx=20, pady=(0, 10))
         
-        tk.Label(filter_frame, text="🔍 Filter:", bg=self.colors["bg"]).pack(side="left")
+        # Search box with placeholder styling
+        search_container = tk.Frame(filter_frame, bg=self.colors.get("surface", "#fff"))
+        search_container.pack(side="left", padx=(10, 15))
+        
+        tk.Label(search_container, text="🔍", font=("Segoe UI", 12),
+                bg=self.colors.get("surface", "#fff")).pack(side="left")
         
         search_var = tk.StringVar()
-        search_entry = tk.Entry(filter_frame, textvariable=search_var, width=20)
-        search_entry.pack(side="left", padx=5)
+        search_entry = tk.Entry(search_container, textvariable=search_var, width=25,
+                               font=("Segoe UI", 11), relief="flat", 
+                               bg=self.colors.get("bg", "#f0f0f0"),
+                               fg=self.colors.get("text_primary", "#000"),
+                               insertbackground=self.colors.get("text_primary", "#000"))
+        search_entry.pack(side="left", padx=5, ipady=6)
+        search_entry.insert(0, "Search entries...")
+        search_entry.bind("<FocusIn>", lambda e: search_entry.delete(0, tk.END) if search_entry.get() == "Search entries..." else None)
+        search_entry.bind("<FocusOut>", lambda e: search_entry.insert(0, "Search entries...") if not search_entry.get() else None)
         
-        type_var = tk.StringVar(value="All")
-        type_combo = ttk.Combobox(filter_frame, textvariable=type_var, values=["All", "High Stress (>7)", "Great Days (Energy > 7)", "Bad Sleep (<6h)"], state="readonly")
+        # Filter dropdown with modern styling
+        filter_container = tk.Frame(filter_frame, bg=self.colors.get("surface", "#fff"))
+        filter_container.pack(side="left", padx=10)
+        
+        tk.Label(filter_container, text="Filter:", font=("Segoe UI", 10, "bold"),
+                bg=self.colors.get("surface", "#fff"), 
+                fg=self.colors.get("text_secondary", "#666")).pack(side="left")
+        
+        type_var = tk.StringVar(value="All Entries")
+        style = ttk.Style()
+        style.configure("Modern.TCombobox", padding=5)
+        type_combo = ttk.Combobox(filter_container, textvariable=type_var, 
+                                 values=["All Entries", "🔴 High Stress (>7)", "✨ Great Days (Energy > 7)", "😴 Bad Sleep (<6h)"], 
+                                 state="readonly", width=22, style="Modern.TCombobox")
         type_combo.pack(side="left", padx=5)
+        
+        # Clear button
+        def clear_filters():
+            search_var.set("")
+            search_entry.delete(0, tk.END)
+            search_entry.insert(0, "Search entries...")
+            type_var.set("All Entries")
+            render_entries()
+        
+        tk.Button(filter_frame, text="✕ Clear", command=clear_filters,
+                 font=("Segoe UI", 9), bg=self.colors.get("bg", "#f0f0f0"), 
+                 fg=self.colors.get("text_secondary", "#666"),
+                 relief="flat", padx=8).pack(side="right", padx=10)
         
         # Scrollable Area
         canvas = tk.Canvas(entries_window, bg=self.colors["bg"], highlightthickness=0)
@@ -475,15 +512,16 @@ class JournalFeature:
                 
                 filtered_count = 0
                 for entry in entries:
-                    # Apply Filters
-                    if search_term and search_term not in entry.content.lower():
+                    # Apply search (skip placeholder text)
+                    search_text = search_term if search_term != "search entries..." else ""
+                    if search_text and search_text not in entry.content.lower():
                         continue
                         
-                    if filter_type == "High Stress (>7)" and (entry.stress_level or 0) <= 7:
+                    if "High Stress" in filter_type and (entry.stress_level or 0) <= 7:
                         continue
-                    if filter_type == "Great Days (Energy > 7)" and (entry.energy_level or 0) <= 7:
+                    if "Great Days" in filter_type and (entry.energy_level or 0) <= 7:
                         continue
-                    if filter_type == "Bad Sleep (<6h)" and (entry.sleep_hours or 7) >= 6:
+                    if "Bad Sleep" in filter_type and (entry.sleep_hours or 7) >= 6:
                         continue
                         
                     filtered_count += 1
@@ -496,7 +534,7 @@ class JournalFeature:
                 session.close()
 
         # Update on filter change
-        tk.Button(filter_frame, text="Search", command=render_entries, bg=self.colors["primary"], fg="white").pack(side="left", padx=5)
+        search_entry.bind("<Return>", lambda e: render_entries())
         type_combo.bind("<<ComboboxSelected>>", lambda e: render_entries())
         
         # Initial Render
@@ -508,40 +546,71 @@ class JournalFeature:
         canvas.bind("<Configure>", _configure_canvas)
 
     def _create_entry_card(self, parent, entry):
-        """Create a modern, aesthetic card for a journal entry"""
+        """Create a modern, aesthetic card for a journal entry with click-to-detail"""
         # --- Card Container (Shadow effect via nested frames) ---
         shadow = tk.Frame(parent, bg="#d0d0d0")
         shadow.pack(fill="x", pady=(8, 0), padx=(12, 8))
         
-        card = tk.Frame(shadow, bg=self.colors.get("surface", "#fff"), bd=0)
+        card = tk.Frame(shadow, bg=self.colors.get("surface", "#fff"), bd=0, cursor="hand2")
         card.pack(fill="x", padx=(0, 2), pady=(0, 2))
         
-        # --- Header: Date & Mood ---
-        header = tk.Frame(card, bg=self.colors.get("surface", "#fff"))
-        header.pack(fill="x", padx=15, pady=(12, 5))
+        # Click handler to open Day Detail
+        def open_day_detail(e=None):
+            try:
+                from app.ui.day_detail import DayDetailPopup
+                DayDetailPopup(card, entry, self.colors, self.i18n)
+            except Exception as err:
+                logging.error(f"Failed to open Day Detail: {err}")
         
-        # Stress indicator with color gradient
+        card.bind("<Button-1>", open_day_detail)
+        
+        # --- Header: Color Bar + Date + Stress Label ---
+        header = tk.Frame(card, bg=self.colors.get("surface", "#fff"))
+        header.pack(fill="x", padx=0, pady=0)
+        
+        # Stress color bar on left edge
         stress_val = entry.stress_level or 0
         if stress_val >= 8:
-            stress_color, stress_icon = "#EF4444", "🔴"
+            stress_color, stress_label = "#EF4444", "High Stress"
         elif stress_val >= 5:
-            stress_color, stress_icon = "#F59E0B", "🟡"
+            stress_color, stress_label = "#F59E0B", "Moderate"
         else:
-            stress_color, stress_icon = "#22C55E", "🟢"
+            stress_color, stress_label = "#22C55E", "Low Stress"
+        
+        color_bar = tk.Frame(header, bg=stress_color, width=6)
+        color_bar.pack(side="left", fill="y")
+        color_bar.bind("<Button-1>", open_day_detail)
+        
+        # Date and stress text
+        date_container = tk.Frame(header, bg=self.colors.get("surface", "#fff"))
+        date_container.pack(side="left", fill="x", expand=True, padx=15, pady=12)
+        date_container.bind("<Button-1>", open_day_detail)
         
         try:
             date_str = datetime.strptime(str(entry.entry_date).split('.')[0], "%Y-%m-%d %H:%M:%S").strftime("%B %d, %Y • %I:%M %p")
         except:
             date_str = str(entry.entry_date)
         
-        date_lbl = tk.Label(header, text=f"{stress_icon}  {date_str}", 
+        date_lbl = tk.Label(date_container, text=date_str, 
                 font=("Segoe UI", 11, "bold"), bg=self.colors.get("surface", "#fff"), fg=self.colors.get("text_primary", "#000"))
         date_lbl.pack(side="left")
+        date_lbl.bind("<Button-1>", open_day_detail)
         
-        # Mood Emoji (Larger, Right-aligned)
+        # Stress label badge
+        stress_badge = tk.Label(date_container, text=stress_label, font=("Segoe UI", 9, "bold"),
+                               bg=stress_color, fg="white", padx=8, pady=2)
+        stress_badge.pack(side="left", padx=10)
+        stress_badge.bind("<Button-1>", open_day_detail)
+        
+        # Sentiment meter (mini bar from red to green)
         score = getattr(entry, 'sentiment_score', 0) or 0
-        mood = "😊" if score > 50 else "😐" if score > -20 else "😔"
-        tk.Label(header, text=mood, font=("Segoe UI", 20), bg=self.colors.get("surface", "#fff")).pack(side="right")
+        sentiment_text = "Positive" if score > 30 else "Neutral" if score > -30 else "Negative"
+        sentiment_color = "#22C55E" if score > 30 else "#6B7280" if score > -30 else "#EF4444"
+        
+        sentiment_lbl = tk.Label(header, text=f"Mood: {sentiment_text}", font=("Segoe UI", 9),
+                                bg=self.colors.get("surface", "#fff"), fg=sentiment_color)
+        sentiment_lbl.pack(side="right", padx=15)
+        sentiment_lbl.bind("<Button-1>", open_day_detail)
         
         # --- Content Preview ---
         preview = entry.content[:180] + "..." if len(entry.content) > 180 else entry.content
@@ -549,31 +618,40 @@ class JournalFeature:
                 bg=self.colors.get("surface", "#fff"), fg=self.colors.get("text_secondary", "#555"), 
                 wraplength=550, justify="left", anchor="w")
         content_lbl.pack(fill="x", padx=15, pady=5)
+        content_lbl.bind("<Button-1>", open_day_detail)
         
-        # --- Metrics Bar (Modern Tags) ---
+        # --- Metrics Bar (Clear Text Labels) ---
         metrics_bar = tk.Frame(card, bg=self.colors.get("surface", "#fff"))
         metrics_bar.pack(fill="x", padx=15, pady=(5, 12))
+        metrics_bar.bind("<Button-1>", open_day_detail)
         
         def add_metric(text, bg_color, fg_color="#fff"):
             m = tk.Label(metrics_bar, text=text, font=("Segoe UI", 9, "bold"), 
                         bg=bg_color, fg=fg_color, padx=10, pady=3)
             m.pack(side="left", padx=(0, 8))
-            # Round corners effect (approximate with border)
             m.configure(relief="flat", highlightthickness=0)
+            m.bind("<Button-1>", open_day_detail)
             
-        # Add metrics with colors
-        if entry.stress_level: 
-            add_metric(f"Stress: {entry.stress_level}/10", stress_color)
+        # Add metrics with clear text labels
         if entry.sleep_hours: 
             sleep_color = "#8B5CF6" if entry.sleep_hours >= 7 else "#9333EA"
-            add_metric(f"💤 {entry.sleep_hours:.1f}h", sleep_color)
+            add_metric(f"Sleep: {entry.sleep_hours:.1f}h", sleep_color)
         if entry.screen_time_mins: 
             screen_hrs = entry.screen_time_mins / 60
             screen_color = "#F97316" if screen_hrs > 4 else "#3B82F6"
-            add_metric(f"📱 {screen_hrs:.1f}h", screen_color)
+            add_metric(f"Screen: {screen_hrs:.1f}h", screen_color)
         if entry.energy_level:
             energy_color = "#22C55E" if entry.energy_level >= 7 else "#6B7280"
-            add_metric(f"⚡ {entry.energy_level}/10", energy_color)
+            add_metric(f"Energy: {entry.energy_level}/10", energy_color)
+        if entry.work_hours:
+            work_color = "#0EA5E9" if entry.work_hours <= 8 else "#DC2626"
+            add_metric(f"Work: {entry.work_hours:.1f}h", work_color)
+        
+        # Click hint
+        hint = tk.Label(card, text="Click to view details →", font=("Segoe UI", 8, "italic"),
+                       bg=self.colors.get("surface", "#fff"), fg=self.colors.get("text_secondary", "#999"))
+        hint.pack(anchor="e", padx=15, pady=(0, 8))
+        hint.bind("<Button-1>", open_day_detail)
     
     def open_dashboard(self):
         """Open analytics dashboard with lazy import"""
