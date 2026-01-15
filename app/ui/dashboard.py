@@ -18,6 +18,7 @@ from app.i18n_manager import get_i18n
 from app.models import Score, JournalEntry, SatisfactionRecord
 from app.db import get_session, get_connection
 from app.analysis.time_based_analysis import time_analyzer
+from app.ui.reflection import ReflectionScreen
 
 # Import emotional profile clustering
 try:

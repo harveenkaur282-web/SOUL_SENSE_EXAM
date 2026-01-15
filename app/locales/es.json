@@ -6,6 +6,11 @@
   "start_assessment": "Iniciar Evaluación",
   "open_journal": "📝 Abrir Diario",
   "view_dashboard": "📊 Ver Panel",
+
+  "reflection_pov_prompt": "Con tus propias palabras, ¿cómo ves tu vida actualmente?",
+  "reflection_challenges_prompt": "¿Hay algún desafío o dificultad que estés enfrentando y que te gustaría compartir?",
+  "skip": "Omitir",
+  "continue": "Continuar",
   
   "errors": {
     "empty_name": "Por favor ingrese su nombre",

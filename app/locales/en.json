@@ -7,6 +7,11 @@
   "open_journal": "📝 Open Journal",
   "view_dashboard": "📊 View Dashboard",
 
+  "reflection_pov_prompt": "In your own words, how do you currently view your life?",
+  "reflection_challenges_prompt": "Are there any challenges or struggles you're currently facing that you'd like to share?",
+  "skip": "Skip",
+  "continue": "Continue",
+
   "errors": {
     "empty_name": "Please enter your name",
     "invalid_age": "Please enter a valid age (numbers only)",

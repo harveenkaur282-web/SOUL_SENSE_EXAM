@@ -13,15 +13,19 @@ from app.db import get_connection
 from app.utils import compute_age_group
 from app.services.question_curator import QuestionCurator
 from app.ui.assessments import RecommendationView
+from app.ui.reflection import ReflectionScreen
+
 
 
 class ExamManager:
     """Manages the exam/question flow with premium styling"""
     
     def __init__(self, app):
-        self.app = app
-        self.root = app.root
-        self.answer_var = tk.IntVar()
+      self.app = app
+      self.root = app.root
+      self.answer_var = tk.IntVar()
+      self.reflection_done = False  # New flag to track if reflection has been submitted
+
 
     def start_test(self):
         """Initialize test state and start the exam"""
@@ -56,9 +60,16 @@ class ExamManager:
         colors = self.app.colors
         
         # Check if test is complete using Session
-        if self.session.is_finished():
+        # If all questions answered but reflection not done, show reflection
+        if self.session.is_finished() and not self.reflection_done:
+        #  Show reflection screen instead of finishing
             self.show_reflection_screen()
             return
+        elif self.session.is_finished() and self.reflection_done:
+        # If reflection already done, finish exam
+           self.finish_test()
+           return
+
         
         # Get data from Session
         q_text, q_tooltip = self.session.get_current_question()
@@ -355,119 +366,37 @@ class ExamManager:
         except ValueError as e:
             messagebox.showerror("Error", str(e))
 
+    from app.ui.reflection_screen import ReflectionScreen
+
     def show_reflection_screen(self):
-        """Show premium reflection screen"""
-        self.app.clear_screen()
-        
-        colors = self.app.colors
-        
-        # Main container
-        main_frame = tk.Frame(self.root, bg=colors["bg"])
-        main_frame.pack(fill="both", expand=True)
-        
-        # Header
-        header_frame = tk.Frame(main_frame, bg=colors.get("secondary", "#8B5CF6"), height=100)
-        header_frame.pack(fill="x")
-        header_frame.pack_propagate(False)
-        
-        header_label = tk.Label(
-            header_frame,
-            text="🌟 Final Reflection",
-            font=("Segoe UI", 28, "bold"),
-            bg=colors.get("secondary", "#8B5CF6"),
-            fg=colors.get("text_inverse", "#FFFFFF")
-        )
-        header_label.pack(pady=30)
-        
-        # Content
-        content_frame = tk.Frame(main_frame, bg=colors["bg"])
-        content_frame.pack(fill="both", expand=True, padx=40, pady=20)
-        
-        # Instruction Card
-        instruction_card = tk.Frame(
-            content_frame,
-            bg=colors.get("surface", "#FFFFFF"),
-            highlightbackground=colors.get("border", "#E2E8F0"),
-            highlightthickness=1
-        )
-        instruction_card.pack(fill="x", pady=10)
-        
-        card_inner = tk.Frame(instruction_card, bg=colors.get("surface", "#FFFFFF"))
-        card_inner.pack(fill="x", padx=25, pady=20)
-        
-        instruction_label = tk.Label(
-            card_inner,
-            text="Describe a recent situation where you felt emotionally challenged.\nHow did you handle it?",
-            font=("Segoe UI", 13),
-            bg=colors.get("surface", "#FFFFFF"),
-            fg=colors.get("text_primary", "#0F172A"),
-            wraplength=500,
-            justify="center"
-        )
-        instruction_label.pack()
-        
-        # Text Area Frame
-        text_frame = tk.Frame(content_frame, bg=colors["bg"])
-        text_frame.pack(fill="both", expand=True, pady=10)
-        
-        self.reflection_entry = tk.Text(
-            text_frame,
-            height=8,
-            font=("Segoe UI", 12),
-            bg=colors.get("surface", "#FFFFFF"),
-            fg=colors.get("text_primary", "#0F172A"),
-            insertbackground=colors.get("text_primary", "#0F172A"),
-            relief="flat",
-            highlightthickness=2,
-            highlightbackground=colors.get("border", "#E2E8F0"),
-            highlightcolor=colors.get("primary", "#3B82F6"),
-            padx=15,
-            pady=15
-        )
-        self.reflection_entry.pack(fill="both", expand=True)
-        
-        # Submit Button
-        btn_frame = tk.Frame(content_frame, bg=colors["bg"])
-        btn_frame.pack(pady=15)
-        
-        submit_btn = tk.Button(
-            btn_frame,
-            text="✨ Submit & See Results",
-            command=self.submit_reflection,
-            font=("Segoe UI", 14, "bold"),
-            bg=colors.get("success", "#10B981"),
-            fg=colors.get("text_inverse", "#FFFFFF"),
-            activebackground=colors.get("success_hover", "#059669"),
-            activeforeground=colors.get("text_inverse", "#FFFFFF"),
-            relief="flat",
-            cursor="hand2",
-            width=22,
-            pady=12,
-            borderwidth=0
-        )
-        submit_btn.pack()
-        submit_btn.bind("<Enter>", lambda e: submit_btn.configure(bg=colors.get("success_hover", "#059669")))
-        submit_btn.bind("<Leave>", lambda e: submit_btn.configure(bg=colors.get("success", "#10B981")))
-        
-        # Skip link
-        skip_label = tk.Label(
-            btn_frame,
-            text="Skip this step",
-            font=("Segoe UI", 10, "underline"),
-            bg=colors["bg"],
-            fg=colors.get("text_tertiary", "#94A3B8"),
-            cursor="hand2"
-        )
-        skip_label.pack(pady=10)
-        skip_label.bind("<Button-1>", lambda e: self._skip_reflection())
+      """Show reflection using the new ReflectionScreen"""
+      self.app.clear_screen()  # clear old widgets
+
+      # Callback to submit reflection to session + finish test
+      def handle_reflection(text):
+        if not text:
+            self.session.reflection_text = ""
+            self.finish_test()
+            return
+
+        analyzer = getattr(self.app, "sia", None)
+        self.session.submit_reflection(text, analyzer)
+        self.finish_test()
+
+      # Show the new screen
+      ReflectionScreen(self.root, self.app, handle_reflection)
+
+
 
     def _skip_reflection(self):
         """Skip reflection and finish test"""
+        self.reflection_done = True
         self.session.reflection_text = ""
         self.finish_test()
 
     def submit_reflection(self):
         """Analyze reflection text and finish test"""
+        self.reflection_done = True
         text = self.reflection_entry.get("1.0", tk.END).strip()
         
         if not text:
@@ -483,6 +412,7 @@ class ExamManager:
 
     def finish_test(self):
         """Calculate final score and save to database - FIXED VERSION"""
+        self.reflection_done = True
         try:
             success = self.session.finish_exam()
             
