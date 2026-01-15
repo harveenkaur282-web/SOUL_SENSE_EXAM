@@ -450,28 +450,12 @@ pip install -r requirements.txt -->
 
 ## ▶️ How to Run
 
-### 1. Database Setup
+### 1. Unified Setup
 
-Ensure your database schema is up to date:
-
-```bash
-python -m alembic upgrade head
-```
-
-### 2. Seed Initial Data
-
-Populate the database with default questions and categories:
+Initialize database, seed data, and run all feature migrations in one step:
 
 ```bash
-python -m scripts.seed_db
-```
-
-### 3. Initialize Features
-
-Ensure all feature tables (including assessments) are ready:
-
-```bash
-python -m scripts.migrate_assessments
+python -m scripts.setup_dev
 ```
 
 ### 4. Start the Application
