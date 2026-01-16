@@ -1,6 +1,7 @@
-from sqlalchemy import Column, Integer, Text, Float, ForeignKey, DateTime
-from sqlalchemy.sql import func
+from sqlalchemy import Column, Integer, String, Float, Text, DateTime
+from datetime import datetime
 from app.models import Base
+
 
 
 class UserReflection(Base):

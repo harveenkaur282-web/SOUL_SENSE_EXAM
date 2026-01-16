@@ -1,4 +1,3 @@
-from app.db import Base
+from sqlalchemy.orm import declarative_base
 
-# Import models AFTER Base
-from .reflection import UserReflection
+Base = declarative_base()
