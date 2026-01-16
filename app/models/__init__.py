@@ -1,5 +1,6 @@
+from sqlalchemy.orm import declarative_base
 
-from app.db import Base
+Base = declarative_base()
 
 from .reflection import UserReflection
 from .user import User

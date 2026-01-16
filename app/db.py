@@ -44,11 +44,12 @@ def safe_db_context():
 
 def check_db_state():
     """Check and create database tables if needed"""
+    from app.models import Base  # import here, not at top
+    Base.metadata.create_all(bind=engine)
+
     logger.info("Checking database state...")
     
     try:
-        # Import models after everything is set up
-        from app.models import Base
         
         # Create all tables
         Base.metadata.create_all(bind=engine)
